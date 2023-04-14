@@ -11,7 +11,7 @@
       condition: event.meta.headers is defined
       action:
         run_job_template:
-          name: debug
+          name: StorageRemediation
           organization: Default
           job_args:
             extra_vars:
