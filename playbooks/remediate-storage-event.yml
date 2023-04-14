@@ -24,14 +24,17 @@
         urgency: low
       register: new_incident
       delegate_to: localhost
+      ignore_errors: true
 
     - set_fact:
         incident_number_cached: "{{ new_incident.record.number }}"
         cacheable: true
       delegate_to: localhost
+      ignore_errors: true
 
     - debug:
         msg: "A new incident has been created: {{ new_incident.record.number }}"
+      ignore_errors: true
         
     - name: Extend volume
       ansible.builtin.service:
