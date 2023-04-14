@@ -13,6 +13,7 @@
         run_job_template:
           name: debug
           organization: Default
-            extra_vars:
-              message: from eda
-              sleep: 1
+            job_args:
+              extra_vars:
+                message: from eda
+                sleep: 1
