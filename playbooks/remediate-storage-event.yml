@@ -37,6 +37,7 @@
         
 - name: REMEDIATE | storage-monitor problems 
   hosts: node1
+  become: true
 
   tasks:
     - name: Extend volume
