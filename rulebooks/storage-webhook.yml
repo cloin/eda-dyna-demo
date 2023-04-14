@@ -11,5 +11,5 @@
       condition: event.meta.headers is defined
       action:
         run_job_template:
-          name: Storage Monitor | Remediate
+          name: StorageRemediate
           organization: Default
