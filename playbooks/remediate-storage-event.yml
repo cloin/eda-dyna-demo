@@ -1,6 +1,7 @@
 ---
-- name: storage-monitor problems 
-  hosts: all
+- name: DOCUMENT | storage-monitor problems 
+  hosts: localhost
+  connection: local
   gather_facts: false
   collections:
     - servicenow.itsm
@@ -23,21 +24,22 @@
         impact: low
         urgency: low
       register: new_incident
-      delegate_to: localhost
       ignore_errors: true
 
     - set_fact:
         incident_number_cached: "{{ new_incident.record.number }}"
         cacheable: true
-      delegate_to: localhost
       ignore_errors: true
 
     - debug:
         msg: "A new incident has been created: {{ new_incident.record.number }}"
       ignore_errors: true
         
+- name: REMEDIATE | storage-monitor problems 
+  hosts: node1
+
+  tasks:
     - name: Extend volume
       ansible.builtin.service:
         name: httpd
         state: started
-      delegate_to: node1
