@@ -2,18 +2,19 @@
 - name: Listen for storage-monitor events
   hosts: all
   sources:
-    - ansible.eda.webhook:
-        host: 0.0.0.0
-        port: 5000
+    - ansible.eda.azure_service_bus:
+        conn_str: "{{ conn_str }}"
+        queue_name: "{{ queue_name }}"
 
   rules:
     - name: Rule - Print event information
-      condition: event.payload.State == "OPEN"
+      condition: event.body.State == "OPEN"
       action:
-        run_job_template:
-          name: StorageRemediation
-          organization: Default
-          job_args:
-            extra_vars:
-              message: Hi, World!
-              sleep: 1
+          debug:
+#         run_job_template:
+#           name: StorageRemediation
+#           organization: Default
+#           job_args:
+#             extra_vars:
+#               message: Hi, World!
+#               sleep: 1
