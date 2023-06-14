@@ -8,7 +8,7 @@
 
   rules:
     - name: Rule - Print event information
-      condition: event.body.State == "OPEN"
+      condition: event.meta is defined
       action:
           debug:
 #         run_job_template:
