@@ -7,14 +7,12 @@
         queue_name: "{{ queue_name }}"
 
   rules:
-    - name: Rule - Print event information
-      condition: event.meta is defined
+    - name: Document and remediate storage-monitor Problem
+      condition: event.body.application == "dynatrace" and event.body.State == "OPEN"
       action:
-          debug:
-#         run_job_template:
-#           name: StorageRemediation
-#           organization: Default
-#           job_args:
-#             extra_vars:
-#               message: Hi, World!
-#               sleep: 1
+        run_job_template:
+          name: StorageRemediation
+          organization: Default
+          job_args:
+            extra_vars:
+              message: "'Hi, World!' -Event-Driven Ansible"
