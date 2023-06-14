@@ -8,7 +8,7 @@
 
   rules:
     - name: Document and remediate storage-monitor Problem
-      condition: event.body.application == "dynatrace" and event.body.State == "OPEN"
+      condition: event.body.State == "OPEN"
       action:
         run_job_template:
           name: StorageRemediation
@@ -17,10 +17,10 @@
             extra_vars:
               message: "'Hi, World!' -Event-Driven Ansible"
 
-    - name: DEBUG1 Dynatrace rulebook
-      condition: event.body.application == "dynatrace"
-      action:
-        debug:
+#     - name: DEBUG1 Dynatrace rulebook
+#       condition: event.body.application == "dynatrace"
+#       action:
+#         debug:
 
     - name: DEBUG2 Dynatrace rulebook
       condition: event.body is defined
