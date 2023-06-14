@@ -18,6 +18,6 @@
               message: "'Hi, World!' -Event-Driven Ansible"
 
     - name: DEBUG Dynatrace rulebook
-      condition: event.body is defined
+      condition: event.body.application == "dynatrace"
       action:
         debug:
