@@ -17,7 +17,12 @@
             extra_vars:
               message: "'Hi, World!' -Event-Driven Ansible"
 
-    - name: DEBUG Dynatrace rulebook
+    - name: DEBUG1 Dynatrace rulebook
       condition: event.body.application == "dynatrace"
+      action:
+        debug:
+
+    - name: DEBUG2 Dynatrace rulebook
+      condition: event.body is defined
       action:
         debug:
