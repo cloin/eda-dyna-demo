@@ -8,7 +8,7 @@
 
   rules:
     - name: Document and remediate storage-monitor Problem
-      condition: event.body.State == "OPEN"
+      condition: event.body.State is defined
       action:
         run_job_template:
           name: StorageRemediation
