@@ -10,7 +10,7 @@
     password: "{{ lookup('env', 'SN_PASSWORD') }}"
     instance: "{{ lookup('env', 'SN_HOST') }}"
     short_description: 
-    description:
+    description: "{{ ansible_eda.event.body }}"
 
   tasks:
 
