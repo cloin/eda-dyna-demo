@@ -18,7 +18,7 @@
       servicenow.itsm.incident:
         state: new
         caller: "{{ username }}"
-        short_description: "{{ ansible_eda.event.payload.ProblemTitle }} {{ ansible_eda.event.payload.ProblemID }}"
+        short_description: "{{ ansible_eda.event.body.ProblemTitle }} {{ ansible_eda.event.body.ProblemID }}"
         description: |
             "{{ description }}"
         impact: low
