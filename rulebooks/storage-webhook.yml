@@ -7,7 +7,7 @@
         queue_name: "{{ queue_name }}"
 
   rules:
-    - name: PROBLEM Document and remediate storage-monitor Problem
+    - name: DYNATRACE - Document and remediate storage-monitor Problem
       condition: event.body.application == "dynatrace" and event.body.State == "OPEN"
       action:
         run_job_template:
@@ -17,17 +17,14 @@
             extra_vars:
               message: "'Hi, World!' -Event-Driven Ansible"
 
-    - name: PROBLEM Resolved
+    - name: DYNATRACE - Problem resolved
       condition: event.body.application == "dynatrace" and event.body.State == "RESOLVED"
       action:
         debug:
+          msg: "{{ event.body.ProblemID }} marked as RESOLVED"
         
-    - name: DEBUG1 Dynatrace rulebook
+    - name: DYNATRACE - Unhandled condition
       condition: event.body.application == "dynatrace"
       action:
         debug:
-
-#     - name: DEBUG2 Dynatrace rulebook
-#       condition: event.body is defined
-#       action:
-#         debug:
+          msg: "Unhandled event condition from Dynatrace"
