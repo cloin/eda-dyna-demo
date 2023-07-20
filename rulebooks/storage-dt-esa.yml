@@ -5,11 +5,11 @@
     - dynatrace.event_driven_ansible.dt_esa_api:
         dt_api_host: "{{ dt_host }}"
         dt_api_token: "{{ dt_token }}"
-        delay: "{{ dt_delay }}"
+        delay: 5
 
   rules:
     - name: DYNATRACE - Document and remediate storage-monitor Problem
-      condition: event.body.State == "OPEN"
+      condition: event.payload.State == "OPEN"
       action:
         run_job_template:
           name: StorageRemediation
@@ -19,13 +19,13 @@
               message: "'Hi, World!' -Event-Driven Ansible"
 
     - name: DYNATRACE - Problem resolved
-      condition: event.body.State == "RESOLVED"
+      condition: event.payload.State == "RESOLVED"
       action:
         debug:
-          msg: "{{ event.body.ProblemID }} marked as RESOLVED"
+          msg: "{{ event.payload.ProblemID }} marked as RESOLVED"
         
     - name: DYNATRACE - Unhandled condition
-      condition: event.body is defined
+      condition: event.payload is defined
       action:
         debug:
           msg: "Unhandled event condition from Dynatrace"
