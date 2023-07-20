@@ -2,7 +2,7 @@
 - name: Listen for storage-monitor events
   hosts: all
   sources:
-    - dynatrace.eda.dt_esa_api:
+    - dynatrace.event_driven_ansible.dt_esa_api:
         dt_api_host: "{{ dt_host }}"
         dt_api_token: "{{ dt_token }}"
         delay: "{{ dt_delay }}"
