@@ -1,0 +1,31 @@
+---
+- name: Listen for storage-monitor events
+  hosts: all
+  sources:
+    - dynatrace.eda.dt_esa_api:
+        dt_api_host: "{{ dt_host }}"
+        dt_api_token: "{{ dt_token }}"
+        delay: "{{ dt_delay }}"
+
+  rules:
+    - name: DYNATRACE - Document and remediate storage-monitor Problem
+      condition: event.body.State == "OPEN"
+      action:
+        run_job_template:
+          name: StorageRemediation
+          organization: Default
+          job_args:
+            extra_vars:
+              message: "'Hi, World!' -Event-Driven Ansible"
+
+    - name: DYNATRACE - Problem resolved
+      condition: event.body.State == "RESOLVED"
+      action:
+        debug:
+          msg: "{{ event.body.ProblemID }} marked as RESOLVED"
+        
+    - name: DYNATRACE - Unhandled condition
+      condition: event.body is defined
+      action:
+        debug:
+          msg: "Unhandled event condition from Dynatrace"
